@@ -269,12 +269,15 @@ fireBtn.addEventListener('click', () =>{
   setTimeout(function(){
     clearInterval(shotPath);
     shot.style.opacity = 0;
-  },700)
+  },1000)
 
 })
 
 const hideDirBtn = document.querySelector('#hideDir');
 const directionsDiv = document.querySelector('#directionsDiv');
 
-hideDirBtn.addEventListener('click',()=>directionsDiv.classList.toggle('d-none'))
-resetBtn.click();
+hideDirBtn.addEventListener('click',()=>{
+  
+  directionsDiv.classList.toggle('d-none')
+  resetBtn.click();
+})
