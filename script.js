@@ -191,28 +191,42 @@ const makePlot = (requestedInput,myArray, myDiv) => {
 
 
 
-var is_touching = function( $div1, $div2 ) {
-	// Div 1 data
-	var d1_offset             = $div1.offset();
-	var d1_height             = $div1.outerHeight( true );
-	var d1_width              = $div1.outerWidth( true );
-	var d1_distance_from_top  = d1_offset.top + d1_height;
-	var d1_distance_from_left = d1_offset.left + d1_width;
+// var is_touching = function( $div1, $div2 ) {
+// 	// Div 1 data
+// 	var d1_offset             = $div1.offset();
+// 	var d1_height             = $div1.outerHeight( true );
+// 	var d1_width              = $div1.outerWidth( true );
+// 	var d1_distance_from_top  = d1_offset.top + d1_height;
+// 	var d1_distance_from_left = d1_offset.left + d1_width;
 
-	// Div 2 data
-	var d2_offset             = $div2.offset();
-	var d2_height             = $div2.outerHeight( true );
-	var d2_width              = $div2.outerWidth( true );
-	var d2_distance_from_top  = d2_offset.top + d2_height;
-	var d2_distance_from_left = d2_offset.left + d2_width;
+// 	// Div 2 data
+// 	var d2_offset             = $div2.offset();
+// 	var d2_height             = $div2.outerHeight( true );
+// 	var d2_width              = $div2.outerWidth( true );
+// 	var d2_distance_from_top  = d2_offset.top + d2_height;
+// 	var d2_distance_from_left = d2_offset.left + d2_width;
 
-	var not_colliding = ( d1_distance_from_top < d2_offset.top || d1_offset.top > d2_distance_from_top || d1_distance_from_left < d2_offset.left || d1_offset.left > d2_distance_from_left );
+// 	var not_colliding = ( d1_distance_from_top < d2_offset.top || d1_offset.top > d2_distance_from_top || d1_distance_from_left < d2_offset.left || d1_offset.left > d2_distance_from_left );
 
-	// Return whether it IS colliding
-	return ! not_colliding;
-};
+// 	// Return whether it IS colliding
+// 	return ! not_colliding;
+// };
 
+const is_touching = () =>{
+  const error = 80;
+  const heloPos = getCurrentPos(helo);
+  const shotPos = getCurrentPos(shot);
 
+  for(let i=0;i<heloPos.length;i++){
+    if(!is_within(heloPos[i],shotPos[i],error)) return false;
+  }
+  return true;
+}
+
+const is_within = (a,b,o)=>{
+  if(a>=b-o && a<=b+o) return true;
+  return false;
+}
 
 
 
@@ -223,7 +237,6 @@ function move(point, angle, unit) {
 
   x += unit*Math.sin(rad);
   y -= unit*Math.cos(rad);
-  console.log(x,y)
   return [x, y];
 }
 
@@ -258,13 +271,13 @@ fireBtn.addEventListener('click', () =>{
   shot.style.left = `${gun.offsetLeft+gun.width/2}px`;
   const shotPath = setInterval(function(){
     let currPos = getCurrentPos(shot);
-    let newPos = move(currPos,currentDeg,10);
+    let newPos = move(currPos,currentDeg,4);
     setPos(shot,newPos);
-    if (is_touching($('#shot'),$('#heloImg'))){
+    if (is_touching()){
       console.log('TOUCHED!!')
       explode();
     }
-  },10);
+  },2);
 
   setTimeout(function(){
     clearInterval(shotPath);

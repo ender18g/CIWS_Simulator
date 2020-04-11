@@ -30,7 +30,7 @@ label {
 
 .shot {
   position: absolute;
-  font-size: 30px;
+  font-size: 40px;
   transition: opacity .1s, transform .5s;
 }
 
