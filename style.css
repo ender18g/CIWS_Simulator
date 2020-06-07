@@ -42,7 +42,7 @@ label {
 
 
 body {
-  height: 100%;
+  height: 100vh;
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -53,3 +53,7 @@ body {
   border-radius: 50px;
 }
 
+#throttleSlider{
+  writing-mode: bt-lr;
+  -webkit-appearance: slider-vertical;
+}
