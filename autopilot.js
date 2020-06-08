@@ -164,7 +164,7 @@ plotBtn.addEventListener('click', () => {
         makePlot(parseInt(desiredAltSlider.value), altArray.reverse(), plotPanel)
       }
         , plotLength * 1000);
-    }, 1000);
+    }, 1500);
   }
   else{
     showPlot=false;
